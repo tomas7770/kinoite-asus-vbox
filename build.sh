@@ -14,4 +14,4 @@ RELEASE="$(rpm -E %fedora)"
 
 find /tmp/rpms
 rpm-ostree install /tmp/rpms/kmods/kmod-VirtualBox*.rpm
-rpm-ostree install VirtualBox-7.0.20-2.fc41
+rpm-ostree install VirtualBox
