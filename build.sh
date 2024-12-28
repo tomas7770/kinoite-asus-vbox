@@ -18,3 +18,7 @@ rpm-ostree install \
 find /tmp/rpms
 rpm-ostree install /tmp/rpms/kmods/kmod-VirtualBox*.rpm
 rpm-ostree install VirtualBox
+
+curl https://pkgs.tailscale.com/stable/fedora/tailscale.repo -o /etc/yum.repos.d/tailscale.repo
+chmod 644 /etc/yum.repos.d/tailscale.repo
+rpm-ostree install tailscale
