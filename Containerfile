@@ -36,7 +36,7 @@ ARG SOURCE_IMAGE="kinoite"
 ARG SOURCE_SUFFIX="-asus-nvidia"
 
 ## SOURCE_TAG arg must be a version built for the specific image: eg, 39, 40, gts, latest
-ARG SOURCE_TAG="40"
+ARG SOURCE_TAG="41"
 
 
 ### 2. SOURCE IMAGE
@@ -48,7 +48,7 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
-COPY --from=ghcr.io/ublue-os/akmods-extra:asus-40 /rpms/ /tmp/rpms
+COPY --from=ghcr.io/ublue-os/akmods-extra:asus-41 /rpms/ /tmp/rpms
 
 COPY build.sh /tmp/build.sh
 
