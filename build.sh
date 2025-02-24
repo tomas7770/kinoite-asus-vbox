@@ -40,3 +40,8 @@ dnf install -y VirtualBox
 curl https://pkgs.tailscale.com/stable/fedora/tailscale.repo -o /etc/yum.repos.d/tailscale.repo
 chmod 644 /etc/yum.repos.d/tailscale.repo
 dnf install -y tailscale
+
+# Install Sunshine
+dnf5 -y copr enable lizardbyte/beta
+dnf5 -y install Sunshine
+dnf5 -y copr disable lizardbyte/beta
