@@ -12,6 +12,20 @@ dnf5 -y install asusctl asusctl-rog-gui supergfxctl
 # Disable COPRs so they don't end up enabled on the final image:
 dnf5 -y copr disable lukenukem/asus-linux
 
+# Workaround for Mesa drivers being downgraded to Fedora FOSS version (missing video codecs)
+rpm-ostree override replace \
+      --experimental \
+      --from repo='fedora-multimedia' \
+      --remove=mesa-libglapi.x86_64 \
+        mesa-dri-drivers \
+        mesa-filesystem \
+        mesa-libEGL \
+        mesa-libGL \
+        mesa-libgbm \
+        mesa-va-drivers \
+        mesa-vulkan-drivers \
+        mesa-vulkan-drivers.i686
+
 # Install RPMFusion (needed by VirtualBox)
 dnf install -y \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-41.noarch.rpm \
