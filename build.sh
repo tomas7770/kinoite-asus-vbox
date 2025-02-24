@@ -17,6 +17,7 @@ rpm-ostree override replace \
       --experimental \
       --from repo='fedora-multimedia' \
       --remove=mesa-libglapi.x86_64 \
+      --remove=mesa-libglapi.i686 \
         mesa-dri-drivers \
         mesa-filesystem \
         mesa-libEGL \
