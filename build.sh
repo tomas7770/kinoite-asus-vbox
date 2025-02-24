@@ -16,8 +16,7 @@ dnf5 -y copr disable lukenukem/asus-linux
 rpm-ostree override replace \
       --experimental \
       --from repo='fedora-multimedia' \
-      --remove=mesa-libglapi.x86_64 \
-      --remove=mesa-libglapi.i686 \
+      --remove=mesa-libglapi \
         mesa-dri-drivers \
         mesa-filesystem \
         mesa-libEGL \
