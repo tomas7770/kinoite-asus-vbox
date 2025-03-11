@@ -2,6 +2,8 @@
 
 set -ouex pipefail
 
+KERNEL="$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
+
 ### Install packages
 
 # Packages can be installed from any enabled yum repo on the image.
@@ -18,8 +20,8 @@ dnf install -y \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-41.noarch.rpm
 
 # Install VirtualBox
-find /tmp/rpms
-dnf install -y /tmp/rpms/kmods/kmod-VirtualBox*.rpm
+find /tmp/VirtualBox
+dnf install -y /tmp/VirtualBox/*${KERNEL}*.rpm # kmod
 dnf install -y VirtualBox
 
 # Install Tailscale
