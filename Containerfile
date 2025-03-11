@@ -2,6 +2,7 @@
 FROM quay.io/fedora/fedora:41 AS builder
 
 COPY build-kmod-VirtualBox.sh /tmp/build-kmod-VirtualBox.sh
+COPY certs /tmp/certs
 
 RUN /tmp/build-kmod-VirtualBox.sh
 
