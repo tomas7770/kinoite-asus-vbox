@@ -1,3 +1,11 @@
+# Build VirtualBox kmod
+FROM quay.io/fedora/fedora:41 AS builder
+
+COPY build-kmod-VirtualBox.sh /tmp/build-kmod-VirtualBox.sh
+
+RUN /tmp/build-kmod-VirtualBox.sh
+
+# Build system image
 FROM ghcr.io/ublue-os/kinoite-nvidia:41
 
 ## Other possible base images include:
@@ -13,7 +21,7 @@ FROM ghcr.io/ublue-os/kinoite-nvidia:41
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
-COPY --from=ghcr.io/ublue-os/akmods-extra:main-41 /rpms/ /tmp/rpms
+COPY --from=builder /var/cache/akmods/VirtualBox /tmp/VirtualBox
 
 COPY build.sh /tmp/build.sh
 
