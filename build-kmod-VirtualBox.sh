@@ -2,12 +2,15 @@
 
 set -ouex pipefail
 
+KERNEL="$(cat /kernel-version.txt)"
+
+dnf install -y fedora-repos-archive
+
 dnf install -y \
     akmods \
     mock \
-    kernel
-
-KERNEL="$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
+    kernel-$KERNEL \
+    kernel-devel-$KERNEL
 
 dnf install -y \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-41.noarch.rpm \
