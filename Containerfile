@@ -1,8 +1,15 @@
+# Query kernel version for building kmod
+FROM ghcr.io/ublue-os/kinoite-nvidia:41 as kernel-query
+
+RUN rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}' > /kernel-version.txt && \
+    echo "Detected kernel version: $(cat /kernel-version.txt)"
+
 # Build VirtualBox kmod
 FROM quay.io/fedora/fedora:41 AS builder
 
 COPY build-kmod-VirtualBox.sh /tmp/build-kmod-VirtualBox.sh
 COPY certs /tmp/certs
+COPY --from=kernel-query /kernel-version.txt /kernel-version.txt
 
 RUN /tmp/build-kmod-VirtualBox.sh
 
