@@ -11,8 +11,6 @@ KERNEL="$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
 # Install Asus stuff
 dnf5 -y copr enable lukenukem/asus-linux
 dnf5 -y install asusctl asusctl-rog-gui supergfxctl
-# Install supergfxctl plasmoid (remove when switching to ublue nvidia image)
-dnf5 -y install supergfxctl-plasmoid
 # Disable COPRs so they don't end up enabled on the final image:
 dnf5 -y copr disable lukenukem/asus-linux
 
@@ -38,3 +36,8 @@ dnf5 -y copr disable lizardbyte/beta
 
 # Install libvirt/virt-manager
 dnf5 -y install libvirt virt-manager
+
+# Install supergfxctl plasmoid (remove when switching to ublue nvidia image)
+dnf5 -y copr enable jhyub/supergfxctl-plasmoid
+dnf5 -y install supergfxctl-plasmoid
+dnf5 -y copr disable jhyub/supergfxctl-plasmoid
