@@ -33,3 +33,9 @@ dnf install -y tailscale
 dnf5 -y copr enable lizardbyte/beta
 dnf5 -y install Sunshine
 dnf5 -y copr disable lizardbyte/beta
+
+# Install libvirt/virt-manager
+dnf5 -y install libvirt virt-manager
+
+# Install supergfxctl plasmoid (remove when switching to ublue nvidia image)
+dnf5 -y install supergfxctl-plasmoid
