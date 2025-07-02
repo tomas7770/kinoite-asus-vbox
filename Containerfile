@@ -30,8 +30,10 @@ FROM ghcr.io/ublue-os/kinoite-main:41
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 COPY --from=builder /var/cache/akmods/VirtualBox /tmp/VirtualBox
+COPY --from=ghcr.io/ublue-os/akmods-nvidia:main-41 / /tmp/akmods-nvidia
 
 COPY build.sh /tmp/build.sh
+COPY nvidia-install.sh /tmp/nvidia-install.sh
 
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
