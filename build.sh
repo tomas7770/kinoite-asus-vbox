@@ -16,8 +16,8 @@ dnf5 -y copr disable lukenukem/asus-linux
 
 # Install RPMFusion (needed by VirtualBox)
 dnf install -y \
-    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-41.noarch.rpm \
-    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-41.noarch.rpm
+    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-42.noarch.rpm \
+    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-42.noarch.rpm
 
 # Install VirtualBox
 find /tmp/VirtualBox
