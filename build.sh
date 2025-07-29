@@ -36,8 +36,3 @@ dnf5 -y copr disable lizardbyte/beta
 
 # Install libvirt/virt-manager
 dnf5 -y install libvirt virt-manager
-
-# Install supergfxctl plasmoid (remove when switching to ublue nvidia image)
-dnf5 -y copr enable jhyub/supergfxctl-plasmoid
-dnf5 -y install supergfxctl-plasmoid
-dnf5 -y copr disable jhyub/supergfxctl-plasmoid
