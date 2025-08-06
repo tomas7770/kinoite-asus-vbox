@@ -1,5 +1,5 @@
 # Query kernel version for building kmod
-FROM ghcr.io/ublue-os/kinoite-nvidia:42 as kernel-query
+FROM ghcr.io/ublue-os/kinoite-main:42 as kernel-query
 
 RUN rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}' > /kernel-version.txt && \
     echo "Detected kernel version: $(cat /kernel-version.txt)"
@@ -14,7 +14,7 @@ COPY --from=kernel-query /kernel-version.txt /kernel-version.txt
 RUN /tmp/build-kmod-VirtualBox.sh
 
 # Build system image
-FROM ghcr.io/ublue-os/kinoite-nvidia:42
+FROM ghcr.io/ublue-os/kinoite-main:42
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:stable
