@@ -28,6 +28,11 @@ jobs:
       packages: write
       id-token: write
 
+    strategy:
+      fail-fast: false
+      matrix:
+        image_variant: [main, nvidia]
+
     steps:
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
@@ -76,18 +81,28 @@ jobs:
 
           echo "alias_tags=${alias_tags[*]}" >> $GITHUB_OUTPUT
 
+      - name: Set image name based on variant
+        id: image_name
+        run: |
+          if [[ "${{ matrix.image_variant }}" == "nvidia" ]]; then
+            echo "name=${MY_IMAGE_NAME}-nv" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=${MY_IMAGE_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+
       # Build metadata
       - name: Image Metadata
         uses: docker/metadata-action@v5
         id: meta
         with:
           images: |
-            ${{ env.MY_IMAGE_NAME }}
+            ${{ steps.image_name.outputs.name }}
 
           labels: |
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository }}/main/README.md
             org.opencontainers.image.description=${{ env.MY_IMAGE_DESC }}
-            org.opencontainers.image.title=${{ env.MY_IMAGE_NAME }}
+            org.opencontainers.image.title=${{ steps.image_name.outputs.name }}
 
       # Retrieve Kmod Signing Key
       - name: Retrieve Kmod Signing Key
@@ -109,11 +124,12 @@ jobs:
             ./Containerfile
           # Postfix image name with -custom to make it a little more descriptive
           # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
-          image: ${{ env.MY_IMAGE_NAME }}
+          image: ${{ steps.image_name.outputs.name }}
           tags: |
             ${{ steps.generate-tags.outputs.alias_tags }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
+          build-args: IMAGE_VARIANT=${{ matrix.image_variant }}
 
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
