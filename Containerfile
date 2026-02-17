@@ -1,13 +1,13 @@
 ARG IMAGE_VARIANT
 
 # Query kernel version for building kmod
-FROM ghcr.io/ublue-os/kinoite-${IMAGE_VARIANT}:42 as kernel-query
+FROM ghcr.io/ublue-os/kinoite-${IMAGE_VARIANT}:43 as kernel-query
 
 RUN rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}' > /kernel-version.txt && \
     echo "Detected kernel version: $(cat /kernel-version.txt)"
 
 # Build VirtualBox kmod
-FROM quay.io/fedora/fedora:42 AS builder
+FROM quay.io/fedora/fedora:43 AS builder
 
 COPY build-kmod-VirtualBox.sh /tmp/build-kmod-VirtualBox.sh
 COPY certs /tmp/certs
@@ -16,7 +16,7 @@ COPY --from=kernel-query /kernel-version.txt /kernel-version.txt
 RUN /tmp/build-kmod-VirtualBox.sh
 
 # Build system image
-FROM ghcr.io/ublue-os/kinoite-${IMAGE_VARIANT}:42
+FROM ghcr.io/ublue-os/kinoite-${IMAGE_VARIANT}:43
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:stable
